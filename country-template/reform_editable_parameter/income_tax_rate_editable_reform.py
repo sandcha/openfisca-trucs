@@ -3,7 +3,7 @@ from openfisca_core.reforms import Reform
 
 
 class income_tax_rate_editable_reform(Reform):
-    name = u'Change the income tax rate according to a'
+    name = u'Change the income tax rate according to the user input'
 
 
     def __init__(self, tax_benefit_system, income_tax_rate=0.16):
@@ -21,4 +21,3 @@ class income_tax_rate_editable_reform(Reform):
 
     def apply(self):
         self.modify_parameters(modifier_function = self.modify_income_tax_rate)
-
