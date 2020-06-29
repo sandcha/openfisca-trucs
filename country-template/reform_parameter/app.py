@@ -47,7 +47,10 @@ print("variable social_security_contribution", social_security_contribution)
 new_legislation_2 = social_security_contribution_reform(tbs)
 
 simulation_4 = new_simulation(new_legislation_2)
-print("> new social_security_contribution scale", new_legislation_2.parameters.taxes.social_security_contribution)
+print(
+    "> new social_security_contribution scale",
+    new_legislation_2.parameters.taxes.social_security_contribution
+    )  # not updated ?!
 # check by calculating the variable of same name
 social_security_contribution = simulation_4.calculate('social_security_contribution', period)
-print("variable social_security_contribution", social_security_contribution)
+print("variable social_security_contribution", social_security_contribution)  # reform ok
