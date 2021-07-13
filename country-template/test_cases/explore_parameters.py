@@ -28,6 +28,6 @@ simulation.set_input("rent", "2011-01", numpy.array([0, 500, 1000]))  # 3 rents 
 housing_allowance = simulation.calculate("housing_allowance", "2011-01")
 print("housing_allowance for active benefits.housing_allowance", housing_allowance)
 
-# from # before december 2016, the housing allowance amonts are 0
+# from december 2016, the housing allowance amonts are 0
 housing_allowance_ended_parameter = simulation.calculate("housing_allowance", "2016-12")
 print("housing_allowance_ended_parameter", housing_allowance_ended_parameter)
