@@ -10,6 +10,7 @@ from openfisca_france.scenarios import init_single_entity
 # Quel point de sortie pour la réduction des cotisations d’allocations familiales ?
 
 tax_benefit_system = FranceTaxBenefitSystem()
+current_period = 2021
 
 scenario = init_single_entity(
     tax_benefit_system.new_scenario(),
@@ -20,11 +21,11 @@ scenario = init_single_entity(
             count = 100,            # 'count' : indicates the number of step
             min = 0,
             max = 100000,
-            name = 'salaire_net', # the variable you want to make evolve
+            name = 'salaire_de_base', # the variable you want to make evolve
             ),
         ]],
     
-    period = 2021,
+    period = current_period,
     parent1 = dict(
         date_naissance = '1980-01-01',
     )
@@ -32,11 +33,17 @@ scenario = init_single_entity(
 
 simulation = scenario.new_simulation()
 
-salaire_net = simulation.calculate_add('salaire_net', 2021)
-allegement_annuel = simulation.calculate_add("allegement_cotisation_allocations_familiales", 2021)
-print(allegement_annuel)
+salaire_de_base = simulation.calculate_add('salaire_de_base', current_period)
+allegement_annuel = simulation.calculate_add("allegement_cotisation_allocations_familiales", current_period)
+print("allegement_annuel : ", allegement_annuel)
 
-plt.plot(salaire_net, allegement_annuel)
-plt.xlabel("Salaire net")
+smic_proratise_annuel = simulation.calculate_add("smic_proratise", current_period)
+print("smic_proratise_annuel : ", smic_proratise_annuel)
+
+plt.plot(salaire_de_base, allegement_annuel)
+plt.xlabel("Salaire de base")
 plt.ylabel("Allègement de cotisation d'allocations familiales")
+plt.axvline(x=18655.408, color="g", label="1 SMIC")
+plt.axvline(x=18655.408 * 3.5, color="r", label="3.5 SMICs")
+plt.legend()
 plt.show()
