@@ -1,8 +1,10 @@
 # This script needs
 # pip install matplotlib
+# pip install seaborn==0.11.2
 # pip install openfisca-france
 
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from openfisca_france import FranceTaxBenefitSystem
 from openfisca_france.scenarios import init_single_entity
@@ -21,7 +23,7 @@ scenario = init_single_entity(
         dict(                       #  in a dictionary
             count = 100,            # 'count' : indicates the number of step
             min = 0,
-            max = 100000,
+            max = 50000,
             name = 'salaire_de_base', # the variable you want to make evolve
             ),
         ]],
@@ -35,24 +37,17 @@ scenario = init_single_entity(
 simulation = scenario.new_simulation()
 
 salaire_de_base = simulation.calculate_add('salaire_de_base', current_period)
-# allegement_annuel = simulation.calculate_add("allegement_cotisation_allocations_familiales", current_period)
-# print("allegement_annuel : ", allegement_annuel)
-# tests : https://github.com/openfisca/openfisca-france/blob/28db1b7dff971f755047aad451f5107b7399de08/tests/formulas/allegement_cotisation_allocations_familiales.yaml
-
 ppa = simulation.calculate_add("ppa", current_period)
 print("ppa : ", ppa)
 
-smic_proratise_annuel = simulation.calculate_add("smic_proratise", current_period)
-print("smic_proratise_annuel : ", smic_proratise_annuel)
+sns.set_theme(style="darkgrid")
+sns.lineplot(x=salaire_de_base, y=ppa)
 
-# plt.plot(salaire_de_base, allegement_annuel)
-plt.plot(salaire_de_base, ppa)
-plt.xlabel("Salaire de base")
-# plt.ylabel("Allègement de cotisation d'allocations familiales")
-plt.ylabel("PPA")
-
-plt.axvline(x=18655.408, color="g", label="1 SMIC")
+plt.axvline(x=18655.408, color="y", label="1 SMIC")
 plt.axvline(x=18655.408 * 1.5, color="g", label="1.5 SMIC")
-plt.axvline(x=18655.408 * 3.5, color="r", label="3.5 SMICs")
+
+plt.xlabel("Salaire de base")
+plt.ylabel("PPA")
 plt.legend()
+
 plt.show()
