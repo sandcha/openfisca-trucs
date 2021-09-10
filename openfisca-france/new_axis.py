@@ -20,11 +20,11 @@ scenario = init_single_entity(
     
     # Axe declaration
     axes = [[
-        dict(                       #  in a dictionary
-            count = 100,            # 'count' : indicates the number of step
+        dict(                      #  in a dictionary
+            count = 100,           # 'count' indicates the number of steps
             min = 0,
-            max = 50000,
-            name = 'salaire_de_base', # the variable you want to make evolve
+            max = 100000,
+            name = 'salaire_net',  # the variable that will evolve 'count' times between 'min' and 'max' values
             ),
         ]],
     
@@ -36,17 +36,17 @@ scenario = init_single_entity(
 
 simulation = scenario.new_simulation()
 
-salaire_de_base = simulation.calculate_add('salaire_de_base', current_period)
+salaire_net = simulation.calculate_add('salaire_net', current_period)
 ppa = simulation.calculate_add("ppa", current_period)
 print("ppa : ", ppa)
 
 sns.set_theme(style="darkgrid")
-sns.lineplot(x=salaire_de_base, y=ppa)
+sns.lineplot(x=salaire_net, y=ppa)
 
 plt.axvline(x=18655.408, color="y", label="1 SMIC")
 plt.axvline(x=18655.408 * 1.5, color="g", label="1.5 SMIC")
 
-plt.xlabel("Salaire de base")
+plt.xlabel("Salaire net")
 plt.ylabel("PPA")
 plt.legend()
 
