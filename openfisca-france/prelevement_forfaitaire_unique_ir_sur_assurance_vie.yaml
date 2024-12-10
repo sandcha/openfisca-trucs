@@ -1,0 +1,29 @@
+- name: Rentier de revenus d'assurance-vie, célibataire et sans enfant
+  period: 2022
+  relative_error_margin: 0.01
+  # reform: module_python.nom_fichier_sans_extension
+  input:
+    individus: 
+      rentier:
+        age: 42
+      toto:
+        age: 5
+    famille:
+      parents: ["rentier"]  # écriture plutôt utilisées lorsqu'il y a plusieurs personnes/valeurs
+      enfants: toto
+    menage:
+      personne_de_reference: rentier
+      enfants: toto
+    foyer_fiscal:
+      declarants: rentier
+      personnes_a_charge: toto
+      # Produits des bons ou contrats de capitalisation et d'assurance vie
+      f2zz:
+        # les périodes glissantes peuvent être utilisées
+        # sur les variables ayant un "set_input" défini
+        # (ce n'est pas le cas pour "f2zz")
+        2022: 15500 * 10
+  output:
+    prelevement_forfaitaire_unique_ir_sur_assurance_vie: 
+      2022: -19840
+      2023: 0

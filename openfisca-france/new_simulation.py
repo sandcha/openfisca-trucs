@@ -1,11 +1,9 @@
 from openfisca_core.simulation_builder import SimulationBuilder
 from openfisca_france import FranceTaxBenefitSystem
-
+# from openfisca_core.model_api import ADD
 
 tbs = FranceTaxBenefitSystem()
 
+nombre_entites = 3
 sb = SimulationBuilder()
-simulation = sb.build_default_simulation(tbs, count=3)
-
-period = '2020-01'
-print(simulation.calculate('smic_proratise', period))
+simulation = sb.build_default_simulation(tbs, count=nombre_entites)
