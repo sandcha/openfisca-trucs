@@ -1,7 +1,8 @@
-# This script needs
-# pip install matplotlib
-# pip install seaborn==0.11.2
-# pip install openfisca-france
+# This script needs the following dependencies:
+# pip install openfisca-france (ex: 169.11.0 ; will come with numpy that we will need for seaborn)
+# pip install seaborn (ex: 0.13.2)
+# And, optional as it should comes with seaborn: pip install matplotlib (ex: 3.9.3)
+
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -9,7 +10,7 @@ import seaborn as sns
 from openfisca_france import FranceTaxBenefitSystem
 from openfisca_france.scenarios import init_single_entity
 
-
+# La question à laquelle répond la courbe :
 # Quel point de sortie pour la réduction des cotisations d’allocations familiales ?
 
 tax_benefit_system = FranceTaxBenefitSystem()
